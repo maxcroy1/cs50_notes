@@ -1,0 +1,292 @@
+# CS50 Lecture 1 - C
+
+- printf("hello, world"); 
+- - Similar to console.log
+- - Allows us to print things to the screen
+- int main(void) { }
+- - Function declaration 
+- #include <stdio.h>
+- - Seems like a declaration for where the method "print" exists
+- Put all together, this would be: 
+
+#include <stdio.h>
+
+int main(void)
+{
+    printf("hello, world\n");
+}
+
+- A compiler is what allows us to run programs on a computer when those programs are written in languages
+- - It converts the code (in this case C) to binary so the computer understands
+- clang is an example of a compiler
+- To execute this program, you indicate the compiler and the file you would like to run (in our case: "clang hello.c")
+- Our output will be returned as a new file called a.out, which is the program converted to binary
+- We then type "./a.out" in our terminal to have the computer run our program
+- If we have multiple programs, we can add command line options to make sure our compiled files are named differently
+- - For example: "clang -o hello hello.c", the output would be "hello"
+- get_string("What's your name?\n") is how we ask for input in C
+- If we want to save the output to a variable, we do this:
+
+#include <stdio.h>
+
+int main(void)
+{
+    string answer = get_string("What's your name?\n");
+    printf("hello %s\n", answer);
+}
+
+- "%s" serves as a placeholder for variables, or arguments, that we want to include. 
+- - Continue using %s for multiple variables when interpolating
+- IMPORTANT TO NOTE: "string" as used in these examples doesn't truly exist within the context of C, as in the command "string" does not indicate the data type "String" in the context of C natively
+- - We're able to use the syntax "string" through the use of a file that CS50 provides, called cs50.h:
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    string answer = get_string("What's your name?\n");
+    printf("hello, %s\n", answer);
+}
+
+- In order for this to compile properly, we must write: "clang -o string string.c -lcs50"
+- - "-l" explicitly commands that we link the file "cs50.h" with our program and allows us to compile correctly
+- Moving forward, when we want to create C files, use the command "make ~program name~" and all necessary files will be linked 
+- - make is not CS50 specific
+- If we want to store a number, we need to let C know that we are going to store an "integer", or int, for example:
+
+int counter = 0;
+
+- To increment counter, we do:
+
+counter = counter + 1;
+OR
+counter += 1;
+OR
+counter++;
+
+- If statement:
+
+if (x < y)
+{
+    printf("x is less than y\n");
+}
+else 
+{
+    printf("x is not less than y\n");
+}
+
+OR
+
+if (x < y)
+{
+    printf("x is less than y\n");
+}
+else if (x > y) 
+{
+    printf("x is not less than y\n");
+}
+else
+{
+    printf("x is equal to y\n");
+}
+
+-  While loop:
+
+while (true)
+{
+    printf("hello, world\n");
+}
+
+- Let's incorporate a counter with a while loop:
+
+int i = 0;
+while (i < 50) 
+{
+    printf("hello, world\n");
+    i++;
+}
+
+- BUT, a for loop is better:
+
+for (int i = 0; i < 50; i++)
+{
+    printf("hello, world\n");
+}
+
+- Some basic datatypes in C:
+- - bool
+- - char
+- - -  A single character
+- - double
+- - - A really long number with a decimal point
+- - float
+- - int
+- - long
+- - - A really long number
+- - string
+- - ... 
+- Placeholders in C:
+- - %c for a char
+- - %f for a float or a double
+- - %i for an int
+- - $li for a long
+- - %s for a string
+
+## Example Programs
+### int.c
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int age = get_int("What's your age?\n");
+    printf("You are at least %i days old.\n", age * 365);
+}
+
+### float.c
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    float price = get_float("What's the price?\n");
+    printf("Your total is %.2f.\n", price * 1.0625);
+}
+
+### parity.c
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int n = get_int("n: ");
+    if (n % 2 == 0) 
+    {
+        printf("even\n");
+    }
+    else 
+    {
+        printf("odd\n");
+    }
+}
+
+- In C, if we want to make comments we use //
+
+### conditions.c
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    //Prompt user for x
+    int x =  get_int("x: ");
+
+    //Prompt user for y
+    int y = get_int("y: );
+
+    //Compare x and y
+    if (x < y)
+    {
+        printf("x is less than y\n");
+    }
+    else if 
+    {
+        printf("x is not less than y\n");
+    }
+    else 
+    {
+        printf("x is equal to y\n");
+    }
+}
+
+### agree.c
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    //Prompt user to agree
+    char c = get_char("Do you agree?\n");
+
+    //Check whether agreed
+    if (c == 'y' || c == 'Y')
+    {
+        printf("Agreed.\n");
+    }
+    else if (c == 'n' || c == 'N')
+    {
+        printf("Not agreed.\n");
+    }
+}
+
+### cough0.c
+
+#include <cs50.h>
+#include <stdio.h>
+
+void cough(void);
+
+int main(void)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        cough();
+    }   
+}
+
+void cough(void)
+{
+    printf("cough\n");
+}
+
+### cough3.c
+
+#include <cs50.h>
+#include <stdio.h>
+
+void cough(int n);
+
+int main(void)
+{
+    cough(3);
+}
+
+void cough(int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        printf("cough\n");
+    }
+}
+
+### positive.c
+
+#include <cs50.h>
+#include <stdio.h>
+
+int get_positive_int(void)
+
+int main(void)
+{
+    int i = get_positive_int();
+    printf("%i\n", i);
+}
+
+int get_positive_int(void)
+{
+    int n;
+    //This is a do-while loop
+    do
+    {
+        n = get_int("Positive Integer: ");
+    }
+    while (n < 1);
+    return n;
+}
+
